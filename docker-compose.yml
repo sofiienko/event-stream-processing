@@ -12,7 +12,10 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-
+    volumes: 
+      - ./mount_volume/zoo/data:/var/lib/zookeeper/data
+      - ./mount_volume/zoo/log:/var/lib/zookeeper/log
+      
   broker:
     image: confluentinc/cp-server:5.5.0
     hostname: broker
@@ -39,6 +42,9 @@ services:
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+    volumes: 
+      - ./mount_volume/broker/data:/var/lib/kafka/data
 
   schema-registry:
     image: confluentinc/cp-schema-registry:5.5.0
